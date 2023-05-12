@@ -1,6 +1,5 @@
 import { Scene as SceneType } from "../types";
 import Luminary from "./Luminary";
-import Ocean from "./Ocean";
 import Sky from "./Sky";
 
 type SceneProps = {
@@ -8,12 +7,15 @@ type SceneProps = {
 };
 
 function Scene({ config }: SceneProps) {
+  const SkyComponent = ({ isReflexion = false }: { isReflexion?: boolean }) => (
+    <Sky isReflexion={isReflexion}>
+      <Luminary glow={config.luminary.glow} />
+    </Sky>
+  );
   return (
     <div className="scene">
-      <Sky>
-        <Luminary glow={config.luminary.glow} />
-      </Sky>
-      <Ocean />
+      <SkyComponent />
+      <SkyComponent isReflexion={true} />
     </div>
   );
 }

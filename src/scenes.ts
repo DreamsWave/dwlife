@@ -3,7 +3,7 @@ import { Scene, SceneConfig } from "./types";
 export const sceneConfig: SceneConfig = {
   duration: {
     luminary: {
-      movement: 2000,
+      movement: 10000,
       atTop: 3000,
     },
   },
