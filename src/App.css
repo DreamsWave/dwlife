@@ -53,13 +53,22 @@
 }
 
 .ocean {
-  background-color: var(--ocean-color-1);
+  /* background-color: var(--ocean-color-1);
   background-image: radial-gradient(
     circle at top,
     var(--ocean-color-1) 0%,
     var(--ocean-color-2) 50%,
     var(--ocean-color-3) 100%
-  );
+  ); */
+}
+
+.waves {
+  opacity: 0.4;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(8px);
+  background-size: cover;
+  filter: url(#displacementFilter);
 }
 
 .luminary {
