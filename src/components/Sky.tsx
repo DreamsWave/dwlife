@@ -1,14 +1,53 @@
+import { AnimatedComponent, SpringValue, animated } from "@react-spring/web";
+import { useEffect, useState } from "react";
+
 type SkyProps = {
   children: React.ReactNode;
   isReflexion: boolean;
+  backgroundGradientPosition: string;
 };
 
-function Sky({ children, isReflexion = false }: SkyProps) {
+function Sky({
+  children,
+  isReflexion = false,
+  backgroundGradientPosition = "150%",
+}: SkyProps) {
+  const [backgroundImage, setBackgroundImage] = useState(`radial-gradient(
+    circle at center 150%,
+    var(--sky-color-1) 0%,
+    var(--sky-color-2) 50%,
+    var(--sky-color-3) 100%
+  )`);
+  useEffect(() => {
+    const luminary = document.querySelector("#luminary");
+    function updateGradient() {
+      if (!luminary) return;
+      const windowHeight = window.innerHeight;
+
+      const luminaryPosition = luminary.getBoundingClientRect();
+      const luminaryYpercentage = Math.round(
+        ((luminaryPosition.top + luminaryPosition.height / 2) / windowHeight) *
+          100 *
+          2
+      );
+      setBackgroundImage(`radial-gradient(
+        circle at center ${luminaryYpercentage}%,
+        var(--sky-color-1) 0%,
+        var(--sky-color-2) 50%,
+        var(--sky-color-3) 100%
+      )`);
+      requestAnimationFrame(updateGradient);
+    }
+
+    requestAnimationFrame(updateGradient);
+  });
+
   return (
-    <div
+    <animated.div
       className="sky"
       style={{
         transform: isReflexion ? "scaleY(-1)" : "",
+        backgroundImage: backgroundImage,
       }}
     >
       {isReflexion && (
@@ -54,7 +93,7 @@ function Sky({ children, isReflexion = false }: SkyProps) {
         </div>
       )}
       {children}
-    </div>
+    </animated.div>
   );
 }
 
