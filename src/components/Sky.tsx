@@ -1,17 +1,12 @@
-import { AnimatedComponent, SpringValue, animated } from "@react-spring/web";
+import { animated } from "@react-spring/web";
 import { useEffect, useState } from "react";
 
 type SkyProps = {
   children: React.ReactNode;
   isReflexion: boolean;
-  backgroundGradientPosition: string;
 };
 
-function Sky({
-  children,
-  isReflexion = false,
-  backgroundGradientPosition = "150%",
-}: SkyProps) {
+function Sky({ children, isReflexion = false }: SkyProps) {
   const [backgroundImage, setBackgroundImage] = useState(`radial-gradient(
     circle at center 150%,
     var(--sky-color-1) 0%,
@@ -56,7 +51,7 @@ function Sky({
             width: "100%",
             height: "100%",
             background:
-              "linear-gradient(rgba(40, 40, 40, 1), rgba(0, 0, 0, 0.05))",
+              "linear-gradient(var(--sky-color-3), rgba(0, 0, 0, 0.05))",
             zIndex: 1,
           }}
         >
