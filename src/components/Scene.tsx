@@ -1,4 +1,6 @@
 import { Scene as SceneType } from "../types";
+import { generateClouds } from "../utils";
+import Clouds from "./Clouds";
 import Luminary from "./Luminary";
 import Sky from "./Sky";
 
@@ -7,9 +9,11 @@ type SceneProps = {
 };
 
 function Scene({ config }: SceneProps) {
+  const clouds = generateClouds();
   const SkyComponent = ({ isReflexion = false }: { isReflexion?: boolean }) => (
     <Sky isReflexion={isReflexion}>
       <Luminary glow={config.luminary.glow} />
+      <Clouds isReflexion={isReflexion} clouds={clouds} />
     </Sky>
   );
   return (
