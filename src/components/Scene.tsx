@@ -2,20 +2,17 @@ import { animated, easings, useSpring } from "@react-spring/web";
 import { Scene as SceneType } from "../types";
 import { generateClouds } from "../utils";
 import Clouds from "./Clouds";
-import Luminary from "./Luminary";
 import Sky from "./Sky";
 import { sceneConfig } from "../scenes";
-import { useEffect, useRef, useState } from "react";
+import HorizontalLight from "./HorizontalLight";
 
 type SceneProps = {
   config: SceneType;
 };
 
 function Scene({ config }: SceneProps) {
+  console.log(config);
   const clouds = generateClouds();
-  const luminaryRef = useRef(null);
-  const [backgroundGradientPosition, setBackgroundGradientPosition] =
-    useState("150%");
   const luminaryMovement = useSpring({
     from: {
       top: "150%",
@@ -27,7 +24,8 @@ function Scene({ config }: SceneProps) {
       },
       {
         top: "50%",
-        delay: sceneConfig.duration.luminary.atTop,
+        delay: 10000,
+        // delay: sceneConfig.duration.luminary.atTop,
       },
       {
         top: "150%",
@@ -42,10 +40,7 @@ function Scene({ config }: SceneProps) {
   });
 
   const SkyComponent = ({ isReflexion = false }: { isReflexion?: boolean }) => (
-    <Sky
-      isReflexion={isReflexion}
-      backgroundGradientPosition={backgroundGradientPosition}
-    >
+    <Sky isReflexion={isReflexion}>
       {/* <Luminary
         glow={config.luminary.glow}
         luminaryMovement={luminaryMovement}
@@ -54,13 +49,18 @@ function Scene({ config }: SceneProps) {
         id="luminary"
         className="luminary"
         style={{
-          filter:
-            config.luminary.glow &&
-            `drop-shadow(0 0 4rem ${config.luminary.glow})`,
+          filter: isReflexion
+            ? "drop-shadow(0 0 4rem var(--sun-glow)) blur(10px)"
+            : `drop-shadow(0 0 4rem "#f672ca")`,
+          opacity: isReflexion ? 0.7 : 1,
+          transform: isReflexion
+            ? "translate(0, 0%) scale(2)"
+            : "translate(0, -50%)",
           ...luminaryMovement,
         }}
       ></animated.div>
       <Clouds isReflexion={isReflexion} clouds={clouds} />
+      <HorizontalLight />
     </Sky>
   );
   return (

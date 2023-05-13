@@ -1,5 +1,4 @@
-import { SpringValue, animated, easings, useSpring } from "@react-spring/web";
-import { sceneConfig } from "../scenes";
+import { SpringValue, animated } from "@react-spring/web";
 
 type LuminaryProps = {
   glow?: string;
@@ -8,13 +7,12 @@ type LuminaryProps = {
   };
 };
 
-function Luminary({ glow, luminaryMovement }: LuminaryProps) {
+function Luminary({ glow }: LuminaryProps) {
   return (
     <animated.div
       className="luminary"
       style={{
         filter: glow && `drop-shadow(0 0 4rem ${glow})`,
-        ...luminaryMovement,
       }}
     ></animated.div>
   );

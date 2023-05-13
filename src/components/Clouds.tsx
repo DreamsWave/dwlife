@@ -7,7 +7,10 @@ function Clouds({ isReflexion = false, clouds }: CloudsProps) {
   return (
     <div
       className="clouds-container"
-      style={{ opacity: isReflexion ? 0.8 : 1 }}
+      style={{
+        transform: isReflexion ? "scaleY(2)" : "scaleY(1)",
+        bottom: isReflexion ? "50%" : "0%",
+      }}
     >
       {clouds.map((cloud, i) => (
         <div
