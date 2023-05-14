@@ -1,3 +1,5 @@
+import { isChromium } from "../utils";
+
 type CloudsProps = {
   isReflexion?: boolean;
   clouds: string[];
@@ -10,6 +12,7 @@ function Clouds({ isReflexion = false, clouds }: CloudsProps) {
       style={{
         transform: isReflexion ? "scaleY(2)" : "scaleY(1)",
         bottom: isReflexion ? "50%" : "0%",
+        display: isChromium() ? "block" : "none",
       }}
     >
       {clouds.map((cloud, i) => (
