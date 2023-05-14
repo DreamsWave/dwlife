@@ -1,5 +1,6 @@
 import { animated } from "@react-spring/web";
 import { useEffect, useState } from "react";
+import { isChromium } from "../utils";
 
 type SkyProps = {
   children: React.ReactNode;
@@ -55,7 +56,10 @@ function Sky({ children, isReflexion = false }: SkyProps) {
             zIndex: 1,
           }}
         >
-          <div className="waves">
+          <div
+            className="waves"
+            style={{ display: isChromium() ? "block" : "none" }}
+          >
             <svg>
               <filter
                 id="displacementFilter"
