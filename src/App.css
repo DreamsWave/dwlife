@@ -137,34 +137,66 @@
 }
 
 #clouds-1 {
-  animation: cloudMovement 20s infinite linear;
+  animation: cloudMovement1 20s infinite linear;
   opacity: 0.3;
 }
 
 #clouds-2 {
-  animation: cloudMovement 30s infinite linear;
+  animation: cloudMovement2 30s infinite linear;
   opacity: 0.5;
 }
 
 #clouds-3 {
-  animation: cloudMovement 40s infinite linear;
+  animation: cloudMovement3 40s infinite linear;
   opacity: 0.8;
 }
 
-@keyframes cloudMovement {
+@keyframes cloudMovement1 {
   0% {
     transform: translateX(0);
-    /*     opacity: 0; */
+    opacity: 0;
   }
-  /*   10% {
-    opacity: 1;
+  20% {
+    opacity: 0.3;
   }
-  90% {
-    opacity: 1;
-  } */
+  80% {
+    opacity: 0.3;
+  }
   100% {
     transform: translateX(-300px);
-    /*     opacity: 0; */
+    opacity: 0;
+  }
+}
+@keyframes cloudMovement2 {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.5;
+  }
+  80% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateX(-300px);
+    opacity: 0;
+  }
+}
+@keyframes cloudMovement3 {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.8;
+  }
+  80% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateX(-300px);
+    opacity: 0;
   }
 }
 
