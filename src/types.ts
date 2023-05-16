@@ -15,12 +15,18 @@ export type Ocean = {
 
 export type Sky = {
   colors: string[];
+  skyReflexionColor: string;
+};
+
+export type HorizontalLight = {
+  color: string;
 };
 
 export type Scene = {
   name: string;
   clouds: Clouds;
   luminary: Luminary;
+  horizontalLight: HorizontalLight;
   ocean: Ocean;
   sky: Sky;
 };

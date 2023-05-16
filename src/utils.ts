@@ -104,3 +104,12 @@ export const generateLuminaryGradient = () => {
     #000 0
   )`;
 };
+
+export const generateSkyGradient = (position: string, colors: string[]) => {
+  return `radial-gradient(
+    circle at center ${position},
+    ${colors
+      .map((color, index) => `${color} ${(index * 100) / (colors.length - 1)}%`)
+      .join(", ")}
+  )`;
+};
