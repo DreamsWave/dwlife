@@ -4,7 +4,6 @@ export const basicScene: Scene = {
   name: "Basic Scene",
   luminary: {
     colors: ["#fdb428", "#f672ca"],
-    // glow: "#000",
     glow: "#f672ca",
     movementDuration: 10000,
     delayAtTheTop: 3000,

@@ -50,31 +50,6 @@
   overflow: hidden;
 }
 
-.waves {
-  opacity: 0.6;
-  width: 100%;
-  height: 100%;
-  backdrop-filter: blur(8px);
-  background-size: cover;
-  filter: url(#displacementFilter);
-}
-
-.clouds-container {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  position: absolute;
-}
-
-.clouds {
-  overflow: hidden;
-  width: 1px;
-  height: 1px;
-  transform: translate(-100%, -100%);
-  border-radius: 50%;
-  filter: url(#filter);
-}
-
 #clouds-1 {
   animation: cloudMovement1 20s infinite linear;
   opacity: 0.3;

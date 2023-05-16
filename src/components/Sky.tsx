@@ -1,6 +1,7 @@
 import { animated } from "@react-spring/web";
 import { useEffect, useState } from "react";
 import { isChromium } from "../utils";
+import Waves from "./Waves";
 
 type SkyProps = {
   children: React.ReactNode;
@@ -56,39 +57,7 @@ function Sky({ children, isReflexion = false }: SkyProps) {
             zIndex: 1,
           }}
         >
-          <div
-            className="waves"
-            style={{ display: isChromium() ? "block" : "none" }}
-          >
-            <svg>
-              <filter
-                id="displacementFilter"
-                x="0"
-                y="0"
-                width="100%"
-                height="100%"
-              >
-                <feTurbulence
-                  id="sea-filter"
-                  numOctaves="3"
-                  seed="2"
-                  baseFrequency="0.02 0.05"
-                ></feTurbulence>
-                <feDisplacementMap
-                  scale="30"
-                  in="SourceGraphic"
-                ></feDisplacementMap>
-                <animate
-                  xlinkHref="#sea-filter"
-                  attributeName="baseFrequency"
-                  dur="60s"
-                  keyTimes="0;0.5;1"
-                  values="0.02 0.06;0.04 0.08;0.02 0.06"
-                  repeatCount="indefinite"
-                />
-              </filter>
-            </svg>
-          </div>
+          {isChromium() && <Waves />}
         </div>
       )}
       {children}
