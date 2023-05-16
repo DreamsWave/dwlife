@@ -1,3 +1,4 @@
+import { styled } from "styled-components";
 import { isChromium } from "../utils";
 
 type CloudsProps = {
@@ -5,23 +6,45 @@ type CloudsProps = {
   clouds: string[];
 };
 
+// const cloudsAnimation = keyframes`
+//   0% {transform: translateX(0); opacity: 0; }
+//   20% { opacity: 0.3;}
+//   80% {  opacity: 0.3; }
+//   100% { transform: translateX(-300px); opacity: 0; }
+// `;
+
+const CloudsWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: absolute;
+`;
+
+const CloudsLayer = styled.div`
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  transform: translate(-100%, -100%);
+  border-radius: 50%;
+  filter: url(#filter);
+`;
+
 function Clouds({ isReflexion = false, clouds }: CloudsProps) {
+  if (!isChromium()) return null;
   return (
-    <div
+    <CloudsWrapper
       className="clouds-container"
       style={{
         transform: isReflexion ? "scaleY(2)" : "scaleY(1)",
         bottom: isReflexion ? "50%" : "0%",
-        display: isChromium() ? "block" : "none",
       }}
     >
       {clouds.map((cloud, i) => (
-        <div
+        <CloudsLayer
           key={i}
           id={`clouds-${i + 1}`}
-          className="clouds"
           style={{ boxShadow: cloud }}
-        ></div>
+        ></CloudsLayer>
       ))}
 
       <svg width="0">
@@ -34,7 +57,7 @@ function Clouds({ isReflexion = false, clouds }: CloudsProps) {
           <feDisplacementMap in="SourceGraphic" scale="240" />
         </filter>
       </svg>
-    </div>
+    </CloudsWrapper>
   );
 }
 
