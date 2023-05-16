@@ -1,53 +1,8 @@
-:root {
-  --sky-color-1: #ee9d32;
-  --sky-color-2: #e0457e;
-  --sky-color-3: #3f2a55;
-  --ocean-color-1: #7b93dd;
-  --ocean-color-2: #5562ca;
-  --ocean-color-3: #051c2a;
-  --sun-color-1: #fdb428;
-  --sun-color-2: #f672ca;
-  --sun-color-3: #f0a24e;
-  --sun-glow: #f672ca;
-  --moon-color-1: #73cbf7;
-  --moon-color-2: #9cfff7;
-  --moon-glow: #73cbf7;
-  --animation-time: 60s;
-}
-
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
   font-family: "Montserrat", Arial, Helvetica, sans-serif;
-}
-
-.scene {
-  width: 100vw;
-  height: 100vh;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
-
-.sky,
-.ocean {
-  width: 100%;
-  height: 50%;
-}
-
-.sky {
-  background-image: radial-gradient(
-    circle at center,
-    var(--sky-color-1) 0%,
-    var(--sky-color-2) 50%,
-    var(--sky-color-3) 100%
-  );
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow: hidden;
 }
 
 #clouds-1 {
@@ -112,16 +67,4 @@
     transform: translateX(-300px);
     opacity: 0;
   }
-}
-
-.horizontal-light {
-  background-image: linear-gradient(
-    0deg,
-    var(--sky-color-2) 0%,
-    transparent 10%
-  );
-  width: 100%;
-  height: 100%;
-  opacity: 0.3;
-  position: absolute;
 }
