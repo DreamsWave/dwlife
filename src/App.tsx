@@ -1,5 +1,4 @@
 import Scene from "./components/Scene";
-import "./App.css";
 import { scenes } from "./scenes";
 
 function App() {

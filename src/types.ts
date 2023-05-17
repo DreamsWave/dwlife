@@ -1,6 +1,11 @@
-export type Clouds = {
-  colors: string[][];
+export type Cloud = {
+  colors: string[];
+  opacity: number;
+  duration: number;
+  positionY: [number, number];
 };
+
+export type Clouds = Cloud[];
 
 export type Luminary = {
   colors: string[];
