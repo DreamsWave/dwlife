@@ -1,49 +1,62 @@
-import { styled } from "styled-components";
+import { keyframes, styled } from "styled-components";
 import { isChromium } from "../utils";
+import { Clouds } from "../types";
 
-type CloudsProps = {
+const generateCloudsAnimation = (opacity: number) => keyframes`
+  0% { transform: translateX(0); opacity: 0; }
+  20% { opacity: ${opacity}; }
+  80% { opacity: ${opacity}; }
+  100% { transform: translateX(-300px); opacity: 0; }
+`;
+
+type CloudsWrapperProps = {
   isReflexion?: boolean;
-  clouds: string[];
 };
-
-// const cloudsAnimation = keyframes`
-//   0% {transform: translateX(0); opacity: 0; }
-//   20% { opacity: 0.3;}
-//   80% {  opacity: 0.3; }
-//   100% { transform: translateX(-300px); opacity: 0; }
-// `;
-
-const CloudsWrapper = styled.div`
-  width: 100%;
+const CloudsWrapper = styled.div<CloudsWrapperProps>`
+  width: calc(100vw + 600px);
   height: 100%;
   overflow: hidden;
   position: absolute;
+  left: 0;
+  opacity: ${({ isReflexion = false }) => (isReflexion ? 0.8 : 1)};
 `;
 
-const CloudsLayer = styled.div`
+type CloudsLayerProps = {
+  opacity: number;
+  duration: number;
+};
+const CloudsLayer = styled.div<CloudsLayerProps>`
   overflow: hidden;
   width: 1px;
   height: 1px;
   transform: translate(-100%, -100%);
   border-radius: 50%;
   filter: url(#filter);
+  animation: ${({ opacity }) => generateCloudsAnimation(opacity)}
+    ${({ duration }) => duration}ms infinite linear;
 `;
 
-function Clouds({ isReflexion = false, clouds }: CloudsProps) {
+type CloudsProps = {
+  isReflexion?: boolean;
+  clouds: Clouds;
+  boxShadows: string[];
+};
+
+function CloudsComponent({
+  isReflexion = false,
+  clouds,
+  boxShadows,
+}: CloudsProps) {
   if (!isChromium()) return null;
+
   return (
-    <CloudsWrapper
-      className="clouds-container"
-      style={{
-        transform: isReflexion ? "scaleY(2)" : "scaleY(1)",
-        bottom: isReflexion ? "50%" : "0%",
-      }}
-    >
+    <CloudsWrapper isReflexion={isReflexion}>
       {clouds.map((cloud, i) => (
         <CloudsLayer
           key={i}
-          id={`clouds-${i + 1}`}
-          style={{ boxShadow: cloud }}
+          style={{ boxShadow: boxShadows[i] }}
+          opacity={cloud.opacity}
+          duration={cloud.duration}
         ></CloudsLayer>
       ))}
 
@@ -61,4 +74,4 @@ function Clouds({ isReflexion = false, clouds }: CloudsProps) {
   );
 }
 
-export default Clouds;
+export default CloudsComponent;
