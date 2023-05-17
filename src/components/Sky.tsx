@@ -6,13 +6,11 @@ import { Sky as SkyConfig } from "../types";
 import { styled } from "styled-components";
 
 type SkyWrapperProps = {
-  backgroundImage: string;
   isReflexion: boolean;
 };
 const SkyWrapper = styled(animated.div)<SkyWrapperProps>`
   width: 100%;
   height: 50%;
-  background-image: ${(props) => props.backgroundImage};
   position: relative;
   display: flex;
   flex-direction: column;
@@ -56,7 +54,12 @@ function Sky({ children, isReflexion = false, config }: SkyProps) {
   });
 
   return (
-    <SkyWrapper backgroundImage={backgroundImage} isReflexion={isReflexion}>
+    <SkyWrapper
+      isReflexion={isReflexion}
+      style={{
+        backgroundImage: backgroundImage,
+      }}
+    >
       {isReflexion && (
         <div
           style={{
