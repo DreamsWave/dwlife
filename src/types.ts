@@ -14,10 +14,6 @@ export type Luminary = {
   delayAtTheTop: number;
 };
 
-export type Ocean = {
-  colors: string[];
-};
-
 export type Sky = {
   colors: string[];
   skyReflexionColor: string;
@@ -32,6 +28,5 @@ export type Scene = {
   clouds: Clouds;
   luminary: Luminary;
   horizontalLight: HorizontalLight;
-  ocean: Ocean;
   sky: Sky;
 };

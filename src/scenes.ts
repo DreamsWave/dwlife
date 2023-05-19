@@ -1,43 +1,76 @@
 import { Scene } from "./types";
 
-export const basicScene: Scene = {
-  name: "Basic Scene",
-  clouds: [
-    {
-      colors: ["#f672ca", "#e0457e"],
-      opacity: 0.8,
-      duration: 40000,
-      positionY: [20, 30],
+export const scenes: Scene[] = [
+  {
+    name: "Retrowave Scene",
+    clouds: [
+      {
+        colors: ["#f672ca", "#e0457e"],
+        opacity: 0.8,
+        duration: 40000,
+        positionY: [20, 30],
+      },
+      {
+        colors: ["#f672ca", "#e0457e"],
+        opacity: 0.9,
+        duration: 50000,
+        positionY: [45, 50],
+      },
+      {
+        colors: ["#e0457e"],
+        opacity: 1,
+        duration: 60000,
+        positionY: [50, 50],
+      },
+    ],
+    luminary: {
+      colors: ["#fdb428", "#f672ca"],
+      glow: "#f672ca",
+      movementDuration: 10000,
+      delayAtTheTop: 3000,
     },
-    {
-      colors: ["#f672ca", "#e0457e"],
-      opacity: 0.9,
-      duration: 50000,
-      positionY: [45, 50],
+    horizontalLight: {
+      color: "#e0457e",
     },
-    {
-      colors: ["#e0457e"],
-      opacity: 1,
-      duration: 60000,
-      positionY: [50, 50],
+    sky: {
+      colors: ["#3f2a55", "#e0457e", "#ee9d32"],
+      skyReflexionColor: "#3f2a55",
     },
-  ],
-  luminary: {
-    colors: ["#fdb428", "#f672ca"],
-    glow: "#f672ca",
-    movementDuration: 10000,
-    delayAtTheTop: 3000,
   },
-  horizontalLight: {
-    color: "#e0457e",
+  {
+    name: "Day Scene",
+    clouds: [
+      {
+        colors: ["#fcf1f5", "#c5daed", "#FFFCE9"],
+        opacity: 0.8,
+        duration: 40000,
+        positionY: [20, 30],
+      },
+      {
+        colors: ["#fcf1f5", "#c5daed", "#FFFCE9"],
+        opacity: 0.9,
+        duration: 50000,
+        positionY: [45, 50],
+      },
+      {
+        colors: ["#fcf1f5", "#c5daed", "#FFFCE9"],
+        opacity: 1,
+        duration: 60000,
+        positionY: [50, 50],
+      },
+    ],
+    luminary: {
+      colors: ["#ffffff", "#FFFCE9"],
+      glow: "#FFFCE9",
+      movementDuration: 10000,
+      delayAtTheTop: 3000,
+    },
+    horizontalLight: {
+      color: "#FAEBD4",
+    },
+    sky: {
+      colors: ["#5e98cf", "#9bc0db", "#c5daed"],
+      skyReflexionColor: "#5e98cf",
+    },
   },
-  sky: {
-    colors: ["#ee9d32", "#e0457e", "#3f2a55"],
-    skyReflexionColor: "#3f2a55",
-  },
-  ocean: {
-    colors: ["#7b93dd", "#5562ca", "#051c2a"],
-  },
-};
-
-export const scenes = [basicScene];
+];

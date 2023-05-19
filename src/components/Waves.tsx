@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
 const WavesWrapper = styled.div`
-  opacity: 0.6;
+  opacity: 0.7;
   width: 100%;
   height: 100%;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(5px);
   background-size: cover;
   filter: url(#displacementFilter);
 `;

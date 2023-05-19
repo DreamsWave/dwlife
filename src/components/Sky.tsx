@@ -1,12 +1,12 @@
 import { animated } from "@react-spring/web";
-import { useEffect, useState } from "react";
-import { generateSkyGradient, isChromium } from "../utils";
+import { isChromium } from "../utils";
 import Waves from "./Waves";
 import { Sky as SkyConfig } from "../types";
 import { styled } from "styled-components";
 
 type SkyWrapperProps = {
   isReflexion: boolean;
+  colors: string[];
 };
 const SkyWrapper = styled(animated.div)<SkyWrapperProps>`
   width: 100%;
@@ -16,7 +16,9 @@ const SkyWrapper = styled(animated.div)<SkyWrapperProps>`
   flex-direction: column;
   align-items: center;
   overflow: hidden;
-  transform: ${(props) => (props.isReflexion ? "scaleY(-1)" : "")};
+  transform: ${({ isReflexion }) => (isReflexion ? "scaleY(-1)" : "")};
+  background-image: ${({ colors }) =>
+    `linear-gradient(${colors.map((color) => color).join(", ")})`};
 `;
 
 type SkyProps = {
@@ -26,46 +28,14 @@ type SkyProps = {
 };
 
 function Sky({ children, isReflexion = false, config }: SkyProps) {
-  const [backgroundImage, setBackgroundImage] = useState(
-    generateSkyGradient("150%", config.colors)
-  );
-
-  // TODO: use a better solution to update gradient on luminary position
-  useEffect(() => {
-    const luminary = document.querySelector("#luminary");
-    function updateGradient() {
-      if (!luminary) return;
-      const windowHeight = window.innerHeight;
-      const luminaryPosition = luminary.getBoundingClientRect();
-      const luminaryYpercentage =
-        Math.round(
-          ((luminaryPosition.top + luminaryPosition.height / 2) /
-            windowHeight) *
-            100 *
-            2
-        ) + "%";
-      setBackgroundImage(
-        generateSkyGradient(luminaryYpercentage, config.colors)
-      );
-      requestAnimationFrame(updateGradient);
-    }
-
-    requestAnimationFrame(updateGradient);
-  });
-
   return (
-    <SkyWrapper
-      isReflexion={isReflexion}
-      style={{
-        backgroundImage: backgroundImage,
-      }}
-    >
+    <SkyWrapper isReflexion={isReflexion} colors={config.colors}>
       {isReflexion && (
         <div
           style={{
             width: "100%",
             height: "100%",
-            background: `linear-gradient(${config.skyReflexionColor}, rgba(0, 0, 0, 0.05))`,
+            background: `linear-gradient(${config.skyReflexionColor}, rgba(200, 200, 250, 0.05))`,
             zIndex: 1,
           }}
         >

@@ -7,11 +7,11 @@ const HorizontalLightWrapper = styled.div<HorizontalLightWrapperProps>`
   background-image: linear-gradient(
     0deg,
     ${({ color }) => color} 0%,
-    transparent 10%
+    transparent 40%
   );
   width: 100%;
   height: 100%;
-  opacity: 0.3;
+  opacity: 1;
   position: absolute;
 `;
 
