@@ -25,13 +25,13 @@ function Scene({ config }: SceneProps) {
 
   const SkyComponent = ({ isReflexion = false }: { isReflexion?: boolean }) => (
     <Sky isReflexion={isReflexion} config={config.sky}>
+      <HorizontalLight color={config.horizontalLight.color} />
       <Luminary config={config.luminary} isReflexion={isReflexion} />
       <Clouds
         isReflexion={isReflexion}
         clouds={config.clouds}
         boxShadows={cloudsBoxShadows}
       />
-      <HorizontalLight color={config.horizontalLight.color} />
     </Sky>
   );
   return (

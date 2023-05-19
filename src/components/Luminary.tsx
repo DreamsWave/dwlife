@@ -23,11 +23,8 @@ const LuminaryWrapper = styled(animated.div)<LuminaryWrapperProps>`
   position: absolute;
   top: 50%;
   transform: translate(0, -50%);
-  filter: drop-shadow(0 0 4rem ${({ glow }) => glow})
-    ${({ isReflexion }) => isReflexion && "blur(10px)"};
-  opacity: ${({ isReflexion }) => (isReflexion ? 0.7 : 1)};
-  transform: ${({ isReflexion }) =>
-    isReflexion ? "translate(0, 0%) scale(2)" : "translate(0, -50%)"};
+  filter: drop-shadow(0 0 2rem ${({ glow }) => glow})
+    ${({ isReflexion }) => isReflexion && "blur(5px)"};
   &:after {
     content: "";
     grid-area: 1 / 1;
@@ -41,31 +38,21 @@ const LuminaryWrapper = styled(animated.div)<LuminaryWrapperProps>`
 function Luminary({ config, isReflexion = false }: LuminaryProps) {
   const { colors, delayAtTheTop, glow, movementDuration } = config;
 
-  const luminaryMovementTransformStart = isReflexion
-    ? "translate(0, -50%) scale(0.8)"
-    : "translate(0, -50%) scale(1)";
-  const luminaryMovementTransformEnd = isReflexion
-    ? "translate(0, -50%) scale(2)"
-    : "translate(0, -50%) scale(1)";
   const luminaryMovement = useSpring({
     from: {
       top: "150%",
-      transform: luminaryMovementTransformStart,
     },
     to: [
       {
         top: "50%",
-        transform: luminaryMovementTransformEnd,
         delay: 0,
       },
       {
         top: "50%",
-        transform: luminaryMovementTransformEnd,
         delay: delayAtTheTop,
       },
       {
         top: "150%",
-        transform: luminaryMovementTransformStart,
         delay: 0,
       },
     ],
