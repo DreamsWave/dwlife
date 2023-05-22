@@ -12,6 +12,7 @@ export type Luminary = {
   glow: string;
   movementDuration: number;
   delayAtTheTop: number;
+  reflexionOpacity: number;
 };
 
 export type Sky = {

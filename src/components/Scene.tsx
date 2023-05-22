@@ -6,12 +6,17 @@ import HorizontalLight from "./HorizontalLight";
 import Luminary from "./Luminary";
 import { styled } from "styled-components";
 
-const SceneWrapper = styled.div`
+type SceneWrapperProps = {
+  primaryBackgroundColor: string;
+};
+const SceneWrapper = styled.div<SceneWrapperProps>`
   width: 100vw;
   height: 100vh;
   position: relative;
   display: flex;
   flex-direction: column;
+  background: ${({ primaryBackgroundColor }) =>
+    `linear-gradient(#fff 0%, #fff 80%, ${primaryBackgroundColor} 100%)`};
 `;
 
 type SceneProps = {
@@ -25,8 +30,15 @@ function Scene({ config }: SceneProps) {
 
   const SkyComponent = ({ isReflexion = false }: { isReflexion?: boolean }) => (
     <Sky isReflexion={isReflexion} config={config.sky}>
-      <HorizontalLight color={config.horizontalLight.color} />
-      <Luminary config={config.luminary} isReflexion={isReflexion} />
+      <Luminary
+        config={config.luminary}
+        isReflexion={isReflexion}
+        primarySkyColor={config.sky.colors[1]}
+      />
+      <HorizontalLight
+        color={config.horizontalLight.color}
+        isReflexion={isReflexion}
+      />
       <Clouds
         isReflexion={isReflexion}
         clouds={config.clouds}
@@ -35,7 +47,10 @@ function Scene({ config }: SceneProps) {
     </Sky>
   );
   return (
-    <SceneWrapper>
+    <SceneWrapper
+      className="scene"
+      primaryBackgroundColor={config.sky.colors[0]}
+    >
       <SkyComponent />
       <SkyComponent isReflexion={true} />
     </SceneWrapper>
