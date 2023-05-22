@@ -9,8 +9,8 @@ type SkyWrapperProps = {
   colors: string[];
 };
 const SkyWrapper = styled(animated.div)<SkyWrapperProps>`
-  width: 100%;
-  height: 50%;
+  width: ${({ isReflexion }) => (isReflexion ? "calc(100% - 1px)" : "100%")};
+  height: ${({ isReflexion }) => (isReflexion ? "calc(20% - 1px)" : "80%")};
   position: relative;
   display: flex;
   flex-direction: column;
@@ -29,14 +29,18 @@ type SkyProps = {
 
 function Sky({ children, isReflexion = false, config }: SkyProps) {
   return (
-    <SkyWrapper isReflexion={isReflexion} colors={config.colors}>
+    <SkyWrapper
+      className="sky"
+      isReflexion={isReflexion}
+      colors={config.colors}
+    >
       {isReflexion && (
         <div
           style={{
             width: "100%",
             height: "100%",
-            background: `linear-gradient(${config.skyReflexionColor}, rgba(200, 200, 250, 0.05))`,
-            zIndex: 1,
+            // background: `linear-gradient(${config.skyReflexionColor}, rgba(200, 200, 250, 0.05))`,
+            zIndex: 6,
           }}
         >
           {isChromium() && <Waves />}

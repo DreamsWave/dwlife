@@ -50,7 +50,7 @@ function CloudsComponent({
   if (!isChromium()) return null;
 
   return (
-    <CloudsWrapper isReflexion={isReflexion}>
+    <CloudsWrapper className="clouds" isReflexion={isReflexion}>
       {clouds.map((cloud, i) => (
         <CloudsLayer
           key={i}

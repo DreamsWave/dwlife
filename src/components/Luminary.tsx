@@ -3,11 +3,6 @@ import { animated, easings, useSpring } from "@react-spring/web";
 import { Luminary as Config } from "../types";
 import { generateLuminaryGradient } from "../utils";
 
-type LuminaryProps = {
-  config: Config;
-  isReflexion?: boolean;
-};
-
 type LuminaryWrapperProps = {
   glow: string;
   isReflexion: boolean;
@@ -16,15 +11,14 @@ type LuminaryWrapperProps = {
 const LuminaryWrapper = styled(animated.div)<LuminaryWrapperProps>`
   display: grid;
   grid-template: 1fr / 1fr;
-  inline-size: min(20vmin, 400px);
+  inline-size: min(30vmin, 200px);
   aspect-ratio: 1;
   border-radius: 50%;
   font-size: 0;
   position: absolute;
-  top: 50%;
-  transform: translate(0, -50%);
-  filter: drop-shadow(0 0 2rem ${({ glow }) => glow})
-    ${({ isReflexion }) => isReflexion && "blur(5px)"};
+  z-index: 5;
+  top: 30vh;
+  filter: drop-shadow(0 0 2rem ${({ glow }) => glow});
   &:after {
     content: "";
     grid-area: 1 / 1;
@@ -35,24 +29,62 @@ const LuminaryWrapper = styled(animated.div)<LuminaryWrapperProps>`
   }
 `;
 
-function Luminary({ config, isReflexion = false }: LuminaryProps) {
-  const { colors, delayAtTheTop, glow, movementDuration } = config;
+type LuminaryReflexionWrapperProps = {
+  primaryLuminaryColor: string;
+  primarySkyColor: string;
+  opacity: number;
+};
+const LuminaryReflexionWrapper = styled(
+  animated.div
+)<LuminaryReflexionWrapperProps>`
+  display: grid;
+  grid-template: 1fr / 1fr;
+  inline-size: min(30vmin, 200px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  font-size: 0;
+  position: absolute;
+  top: 10vh;
+  transform: scale3d(2.5, 2.7, 1);
+  filter: blur(25px);
+  z-index: 5;
+  opacity: ${({ opacity }) => opacity};
+  background: radial-gradient(
+    at center,
+    ${({ primaryLuminaryColor }) => primaryLuminaryColor} 0%,
+    ${({ primaryLuminaryColor }) => primaryLuminaryColor} 50%,
+    ${({ primarySkyColor }) => primarySkyColor} 100%
+  );
+`;
+
+type LuminaryProps = {
+  config: Config;
+  isReflexion?: boolean;
+  primarySkyColor: string;
+};
+function Luminary({
+  config,
+  isReflexion = false,
+  primarySkyColor,
+}: LuminaryProps) {
+  const { colors, delayAtTheTop, glow, movementDuration, reflexionOpacity } =
+    config;
 
   const luminaryMovement = useSpring({
     from: {
-      top: "150%",
+      top: "85vh",
     },
     to: [
       {
-        top: "50%",
+        top: "30vh",
         delay: 0,
       },
       {
-        top: "50%",
+        top: "30vh",
         delay: delayAtTheTop,
       },
       {
-        top: "150%",
+        top: "85vh",
         delay: 0,
       },
     ],
@@ -63,9 +95,51 @@ function Luminary({ config, isReflexion = false }: LuminaryProps) {
     loop: true,
   });
 
+  const luminaryReflexionMovement = useSpring({
+    from: {
+      top: "15vh",
+      opacity: 0,
+    },
+    to: [
+      {
+        top: "10vh",
+        opacity: reflexionOpacity,
+        delay: 0,
+      },
+      {
+        top: "10vh",
+        opacity: reflexionOpacity,
+        delay: 13000,
+      },
+      {
+        top: "15vh",
+        opacity: 0,
+        delay: 0,
+      },
+    ],
+    config: {
+      duration: 5000,
+      easing: easings.easeInOutQuad,
+    },
+    loop: true,
+  });
+
+  if (isReflexion)
+    return (
+      <LuminaryReflexionWrapper
+        className="luminary"
+        primaryLuminaryColor={colors[0]}
+        primarySkyColor={primarySkyColor}
+        opacity={reflexionOpacity}
+        style={{
+          ...luminaryReflexionMovement,
+        }}
+      />
+    );
+
   return (
     <LuminaryWrapper
-      id="luminary"
+      className="luminary"
       isReflexion={isReflexion}
       glow={glow}
       colors={colors}

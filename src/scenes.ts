@@ -28,12 +28,13 @@ export const scenes: Scene[] = [
       glow: "#f672ca",
       movementDuration: 10000,
       delayAtTheTop: 3000,
+      reflexionOpacity: 0.4,
     },
     horizontalLight: {
-      color: "#e0457e",
+      color: "#f672ca",
     },
     sky: {
-      colors: ["#3f2a55", "#e0457e", "#ee9d32"],
+      colors: ["#3f2a55", "#e0457e"],
       skyReflexionColor: "#3f2a55",
     },
   },
@@ -64,6 +65,7 @@ export const scenes: Scene[] = [
       glow: "#FFFCE9",
       movementDuration: 10000,
       delayAtTheTop: 3000,
+      reflexionOpacity: 0.8,
     },
     horizontalLight: {
       color: "#FAEBD4",
