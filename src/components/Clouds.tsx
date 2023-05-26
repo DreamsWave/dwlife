@@ -1,6 +1,7 @@
 import { keyframes, styled } from "styled-components";
 import { isChromium } from "../utils";
-import { Clouds } from "../types";
+import { Scene } from "../types";
+import { animated, useSpring } from "@react-spring/web";
 
 const generateCloudsAnimation = (opacity: number) => keyframes`
   0% { transform: translateX(0); opacity: 0; }
@@ -12,7 +13,7 @@ const generateCloudsAnimation = (opacity: number) => keyframes`
 type CloudsWrapperProps = {
   isReflexion?: boolean;
 };
-const CloudsWrapper = styled.div<CloudsWrapperProps>`
+const CloudsWrapper = styled(animated.div)<CloudsWrapperProps>`
   width: calc(100vw + 600px);
   height: 100%;
   overflow: hidden;
@@ -38,20 +39,39 @@ const CloudsLayer = styled.div<CloudsLayerProps>`
 
 type CloudsProps = {
   isReflexion?: boolean;
-  clouds: Clouds;
   boxShadows: string[];
+  config: Scene;
 };
 
 function CloudsComponent({
   isReflexion = false,
-  clouds,
   boxShadows,
+  config,
 }: CloudsProps) {
+  const cloudsOpacityAnimation = useSpring({
+    from: {
+      opacity: 0.5,
+    },
+    to: [
+      {
+        opacity: 1,
+      },
+      { opacity: 1, delay: config.luminary.delayAtTheTop },
+      { opacity: 0.5 },
+    ],
+    config: {
+      duration: config.luminary.movementDuration,
+    },
+  });
+
   if (!isChromium()) return null;
 
   return (
-    <CloudsWrapper className="clouds" isReflexion={isReflexion}>
-      {clouds.map((cloud, i) => (
+    <CloudsWrapper
+      isReflexion={isReflexion}
+      style={{ ...cloudsOpacityAnimation }}
+    >
+      {config.clouds.map((cloud, i) => (
         <CloudsLayer
           key={i}
           style={{ boxShadow: boxShadows[i] }}

@@ -1,10 +1,14 @@
+import { animated, useSpring } from "@react-spring/web";
 import styled from "styled-components";
+import { Scene } from "../types";
 
 type HorizontalLightWrapperProps = {
   color: string;
   isReflexion: boolean;
 };
-const HorizontalLightWrapper = styled.div<HorizontalLightWrapperProps>`
+const HorizontalLightWrapper = styled(
+  animated.div
+)<HorizontalLightWrapperProps>`
   background-image: linear-gradient(
     0deg,
     ${({ color }) => color} 0%,
@@ -18,14 +22,38 @@ const HorizontalLightWrapper = styled.div<HorizontalLightWrapperProps>`
 `;
 
 type HorizontalLightProps = {
-  color: string;
+  config: Scene;
   isReflexion?: boolean;
 };
-function HorizontalLight({ color, isReflexion = false }: HorizontalLightProps) {
+
+function HorizontalLight({
+  config,
+  isReflexion = false,
+}: HorizontalLightProps) {
+  const horizontalLightAnimation = useSpring({
+    from: {
+      opacity: 0.3,
+    },
+    to: [
+      {
+        opacity: 1,
+      },
+      {
+        opacity: 1,
+        delay: config.luminary.delayAtTheTop,
+      },
+      {
+        opacity: 0.3,
+      },
+    ],
+    config: {
+      duration: config.luminary.movementDuration,
+    },
+  });
   return (
     <HorizontalLightWrapper
-      className="horizontal-light"
-      color={color}
+      color={config.horizontalLight.color}
+      style={{ ...horizontalLightAnimation }}
       isReflexion={isReflexion}
     ></HorizontalLightWrapper>
   );
