@@ -6,7 +6,7 @@ export const scenes: Scene[] = [
     clouds: [
       {
         colors: ["#fcf1f5", "#c5daed", "#FFFCE9"],
-        opacity: 0.8,
+        opacity: 0.5,
         duration: 40000,
         positionY: [20, 30],
       },
@@ -28,7 +28,7 @@ export const scenes: Scene[] = [
       glow: "#FFFCE9",
       movementDuration: 10000,
       delayAtTheTop: 3000,
-      reflexionOpacity: 0.8,
+      reflexionOpacity: 0.5,
     },
     horizontalLight: {
       color: "#FAEBD4",
@@ -65,7 +65,7 @@ export const scenes: Scene[] = [
       glow: "#f672ca",
       movementDuration: 10000,
       delayAtTheTop: 3000,
-      reflexionOpacity: 0.5,
+      reflexionOpacity: 0.3,
     },
     horizontalLight: {
       color: "#e0457e",
