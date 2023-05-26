@@ -1,13 +1,15 @@
+import Scenes from "./components/Scenes";
 import Scene from "./components/Scene";
 import { scenes } from "./scenes";
 
 function App() {
   return (
     <div className="App">
-      {/* {scenes.map((scene, i) => (
-        <Scene key={i} config={scene} />
-      ))} */}
-      <Scene config={scenes[1]} />
+      <Scenes>
+        {scenes.map((scene, index) => (
+          <Scene key={index} config={scene} />
+        ))}
+      </Scenes>
     </div>
   );
 }

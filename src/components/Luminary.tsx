@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 import { animated, easings, useSpring } from "@react-spring/web";
-import { Luminary as Config } from "../types";
+import { Scene } from "../types";
 import { generateLuminaryGradient } from "../utils";
 
 type LuminaryWrapperProps = {
@@ -58,18 +58,10 @@ const LuminaryReflexionWrapper = styled(
 `;
 
 type LuminaryProps = {
-  config: Config;
+  config: Scene;
   isReflexion?: boolean;
-  primarySkyColor: string;
 };
-function Luminary({
-  config,
-  isReflexion = false,
-  primarySkyColor,
-}: LuminaryProps) {
-  const { colors, delayAtTheTop, glow, movementDuration, reflexionOpacity } =
-    config;
-
+function Luminary({ config, isReflexion = false }: LuminaryProps) {
   const luminaryMovement = useSpring({
     from: {
       top: "85vh",
@@ -81,7 +73,7 @@ function Luminary({
       },
       {
         top: "30vh",
-        delay: delayAtTheTop,
+        delay: config.luminary.delayAtTheTop,
       },
       {
         top: "85vh",
@@ -89,7 +81,7 @@ function Luminary({
       },
     ],
     config: {
-      duration: movementDuration,
+      duration: config.luminary.movementDuration,
       easing: easings.easeInOutQuad,
     },
     loop: true,
@@ -103,12 +95,12 @@ function Luminary({
     to: [
       {
         top: "10vh",
-        opacity: reflexionOpacity,
+        opacity: config.luminary.reflexionOpacity,
         delay: 0,
       },
       {
         top: "10vh",
-        opacity: reflexionOpacity,
+        opacity: config.luminary.reflexionOpacity,
         delay: 13000,
       },
       {
@@ -128,9 +120,9 @@ function Luminary({
     return (
       <LuminaryReflexionWrapper
         className="luminary"
-        primaryLuminaryColor={colors[0]}
-        primarySkyColor={primarySkyColor}
-        opacity={reflexionOpacity}
+        primaryLuminaryColor={config.luminary.colors[0]}
+        primarySkyColor={config.sky.colors[0]}
+        opacity={config.luminary.reflexionOpacity}
         style={{
           ...luminaryReflexionMovement,
         }}
@@ -141,8 +133,8 @@ function Luminary({
     <LuminaryWrapper
       className="luminary"
       isReflexion={isReflexion}
-      glow={glow}
-      colors={colors}
+      glow={config.luminary.glow}
+      colors={config.luminary.colors}
       style={{
         ...luminaryMovement,
       }}
