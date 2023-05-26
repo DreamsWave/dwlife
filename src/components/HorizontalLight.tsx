@@ -1,9 +1,13 @@
+import { animated, useSpring } from "@react-spring/web";
 import styled from "styled-components";
+import { Scene } from "../types";
 
 type HorizontalLightWrapperProps = {
   color: string;
 };
-const HorizontalLightWrapper = styled.div<HorizontalLightWrapperProps>`
+const HorizontalLightWrapper = styled(
+  animated.div
+)<HorizontalLightWrapperProps>`
   background-image: linear-gradient(
     0deg,
     ${({ color }) => color} 0%,
@@ -16,10 +20,35 @@ const HorizontalLightWrapper = styled.div<HorizontalLightWrapperProps>`
 `;
 
 type HorizontalLightProps = {
-  color: string;
+  config: Scene;
 };
-function HorizontalLight({ color }: HorizontalLightProps) {
-  return <HorizontalLightWrapper color={color}></HorizontalLightWrapper>;
+function HorizontalLight({ config }: HorizontalLightProps) {
+  const horizontalLightAnimation = useSpring({
+    from: {
+      opacity: 0.3,
+    },
+    to: [
+      {
+        opacity: 1,
+      },
+      {
+        opacity: 1,
+        delay: config.luminary.delayAtTheTop,
+      },
+      {
+        opacity: 0.3,
+      },
+    ],
+    config: {
+      duration: config.luminary.movementDuration,
+    },
+  });
+  return (
+    <HorizontalLightWrapper
+      color={config.horizontalLight.color}
+      style={{ ...horizontalLightAnimation }}
+    ></HorizontalLightWrapper>
+  );
 }
 
 export default HorizontalLight;

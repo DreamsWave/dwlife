@@ -1,7 +1,7 @@
 import { animated } from "@react-spring/web";
 import { isChromium } from "../utils";
 import Waves from "./Waves";
-import { Sky as SkyConfig } from "../types";
+import { Scene } from "../types";
 import { styled } from "styled-components";
 
 type SkyWrapperProps = {
@@ -24,18 +24,18 @@ const SkyWrapper = styled(animated.div)<SkyWrapperProps>`
 type SkyProps = {
   children: React.ReactNode;
   isReflexion: boolean;
-  config: SkyConfig;
+  config: Scene;
 };
 
 function Sky({ children, isReflexion = false, config }: SkyProps) {
   return (
-    <SkyWrapper isReflexion={isReflexion} colors={config.colors}>
+    <SkyWrapper isReflexion={isReflexion} colors={config.sky.colors}>
       {isReflexion && (
         <div
           style={{
             width: "100%",
             height: "100%",
-            background: `linear-gradient(${config.skyReflexionColor}, rgba(200, 200, 250, 0.05))`,
+            background: `linear-gradient(${config.sky.skyReflexionColor}, rgba(200, 200, 250, 0.05))`,
             zIndex: 1,
           }}
         >
