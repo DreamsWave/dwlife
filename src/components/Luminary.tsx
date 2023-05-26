@@ -1,12 +1,7 @@
 import { styled } from "styled-components";
 import { animated, easings, useSpring } from "@react-spring/web";
-import { Luminary as Config } from "../types";
+import { Scene } from "../types";
 import { generateLuminaryGradient } from "../utils";
-
-type LuminaryProps = {
-  config: Config;
-  isReflexion?: boolean;
-};
 
 type LuminaryWrapperProps = {
   glow: string;
@@ -35,9 +30,11 @@ const LuminaryWrapper = styled(animated.div)<LuminaryWrapperProps>`
   }
 `;
 
+type LuminaryProps = {
+  config: Scene;
+  isReflexion?: boolean;
+};
 function Luminary({ config, isReflexion = false }: LuminaryProps) {
-  const { colors, delayAtTheTop, glow, movementDuration } = config;
-
   const luminaryMovement = useSpring({
     from: {
       top: "150%",
@@ -49,7 +46,7 @@ function Luminary({ config, isReflexion = false }: LuminaryProps) {
       },
       {
         top: "50%",
-        delay: delayAtTheTop,
+        delay: config.luminary.delayAtTheTop,
       },
       {
         top: "150%",
@@ -57,7 +54,7 @@ function Luminary({ config, isReflexion = false }: LuminaryProps) {
       },
     ],
     config: {
-      duration: movementDuration,
+      duration: config.luminary.movementDuration,
       easing: easings.easeInOutQuad,
     },
     loop: true,
@@ -67,8 +64,8 @@ function Luminary({ config, isReflexion = false }: LuminaryProps) {
     <LuminaryWrapper
       id="luminary"
       isReflexion={isReflexion}
-      glow={glow}
-      colors={colors}
+      glow={config.luminary.glow}
+      colors={config.luminary.colors}
       style={{
         ...luminaryMovement,
       }}

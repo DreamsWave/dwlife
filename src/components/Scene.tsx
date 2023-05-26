@@ -19,18 +19,16 @@ type SceneProps = {
 };
 
 function Scene({ config }: SceneProps) {
-  console.log(config);
-
   const cloudsBoxShadows = generateClouds(config.clouds);
 
   const SkyComponent = ({ isReflexion = false }: { isReflexion?: boolean }) => (
-    <Sky isReflexion={isReflexion} config={config.sky}>
-      <HorizontalLight color={config.horizontalLight.color} />
-      <Luminary config={config.luminary} isReflexion={isReflexion} />
+    <Sky isReflexion={isReflexion} config={config}>
+      <HorizontalLight config={config} />
+      <Luminary config={config} isReflexion={isReflexion} />
       <Clouds
         isReflexion={isReflexion}
-        clouds={config.clouds}
         boxShadows={cloudsBoxShadows}
+        config={config}
       />
     </Sky>
   );
