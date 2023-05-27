@@ -2,6 +2,8 @@ import { styled } from "styled-components";
 import { animated, easings, useSpring } from "@react-spring/web";
 import { Scene } from "../types";
 import { generateLuminaryGradient } from "../utils";
+import { useControls } from "leva";
+import { useControlsContext } from "../controls-context";
 
 type LuminaryWrapperProps = {
   glow: string;
@@ -62,7 +64,8 @@ type LuminaryProps = {
   isReflexion?: boolean;
 };
 function Luminary({ config, isReflexion = false }: LuminaryProps) {
-  const luminaryMovement = useSpring({
+  const { state, dispatch } = useControlsContext();
+  const [luminaryMovement, luminaryMovementAPI] = useSpring(() => ({
     from: {
       top: "85vh",
     },
@@ -85,35 +88,53 @@ function Luminary({ config, isReflexion = false }: LuminaryProps) {
       easing: easings.easeInOutQuad,
     },
     loop: true,
-  });
+  }));
 
-  const luminaryReflexionMovement = useSpring({
-    from: {
-      top: "15vh",
-      opacity: 0,
-    },
-    to: [
-      {
-        top: "10vh",
-        opacity: config.luminary.reflexionOpacity,
-        delay: 0,
-      },
-      {
-        top: "10vh",
-        opacity: config.luminary.reflexionOpacity,
-        delay: 13000,
-      },
-      {
+  const [luminaryReflexionMovement, luminaryReflexionMovementAPI] = useSpring(
+    () => ({
+      from: {
         top: "15vh",
         opacity: 0,
-        delay: 0,
       },
-    ],
-    config: {
-      duration: 5000,
-      easing: easings.easeInOutQuad,
+      to: [
+        {
+          top: "10vh",
+          opacity: config.luminary.reflexionOpacity,
+          delay: 0,
+        },
+        {
+          top: "10vh",
+          opacity: config.luminary.reflexionOpacity,
+          delay: 13000,
+        },
+        {
+          top: "15vh",
+          opacity: 0,
+          delay: 0,
+        },
+      ],
+      config: {
+        duration: 5000,
+        easing: easings.easeInOutQuad,
+      },
+      loop: true,
+    })
+  );
+
+  useControls({
+    pauseAnimations: {
+      value: state.pauseAnimations,
+      onChange: (isPaused) => {
+        if (isPaused) {
+          luminaryMovementAPI.pause();
+          luminaryReflexionMovementAPI.pause();
+        } else {
+          luminaryMovementAPI.resume();
+          luminaryReflexionMovementAPI.resume();
+        }
+        dispatch({ type: "pauseAnimations" });
+      },
     },
-    loop: true,
   });
 
   if (isReflexion)
@@ -135,9 +156,7 @@ function Luminary({ config, isReflexion = false }: LuminaryProps) {
       isReflexion={isReflexion}
       glow={config.luminary.glow}
       colors={config.luminary.colors}
-      style={{
-        ...luminaryMovement,
-      }}
+      style={{ ...luminaryMovement }}
     ></LuminaryWrapper>
   );
 }

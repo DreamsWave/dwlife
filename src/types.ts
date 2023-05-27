@@ -16,7 +16,7 @@ export type Luminary = {
 };
 
 export type Sky = {
-  colors: string[];
+  colors: [string, string, string];
   skyReflexionColor: string;
 };
 
