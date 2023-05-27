@@ -9,6 +9,7 @@ import { styled } from "styled-components";
 type SceneWrapperProps = {
   primaryBackgroundColor: string;
 };
+
 const SceneWrapper = styled.div<SceneWrapperProps>`
   width: 100vw;
   height: 100vh;

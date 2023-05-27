@@ -2,6 +2,8 @@ import { keyframes, styled } from "styled-components";
 import { isChromium } from "../utils";
 import { Scene } from "../types";
 import { animated, useSpring } from "@react-spring/web";
+import { useControls } from "leva";
+import { useControlsContext } from "../controls-context";
 
 const generateCloudsAnimation = (opacity: number) => keyframes`
   0% { transform: translateX(0); opacity: 0; }
@@ -48,7 +50,8 @@ function CloudsComponent({
   boxShadows,
   config,
 }: CloudsProps) {
-  const cloudsOpacityAnimation = useSpring({
+  const { state, dispatch } = useControlsContext();
+  const [cloudsOpacityAnimation, cloudsOpacityAnimationAPI] = useSpring(() => ({
     from: {
       opacity: 0.5,
     },
@@ -61,6 +64,20 @@ function CloudsComponent({
     ],
     config: {
       duration: config.luminary.movementDuration,
+    },
+  }));
+
+  useControls({
+    pauseAnimations: {
+      value: state.pauseAnimations,
+      onChange: (isPaused) => {
+        if (isPaused) {
+          cloudsOpacityAnimationAPI.pause();
+        } else {
+          cloudsOpacityAnimationAPI.resume();
+        }
+        dispatch({ type: "pauseAnimations" });
+      },
     },
   });
 

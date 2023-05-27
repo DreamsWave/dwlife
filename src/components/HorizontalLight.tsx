@@ -1,6 +1,8 @@
 import { animated, useSpring } from "@react-spring/web";
 import styled from "styled-components";
 import { Scene } from "../types";
+import { useControls } from "leva";
+import { useControlsContext } from "../controls-context";
 
 type HorizontalLightWrapperProps = {
   color: string;
@@ -30,26 +32,44 @@ function HorizontalLight({
   config,
   isReflexion = false,
 }: HorizontalLightProps) {
-  const horizontalLightAnimation = useSpring({
-    from: {
-      opacity: 0.3,
-    },
-    to: [
-      {
-        opacity: 1,
-      },
-      {
-        opacity: 1,
-        delay: config.luminary.delayAtTheTop,
-      },
-      {
+  const { state, dispatch } = useControlsContext();
+  const [horizontalLightAnimation, horizontalLightAnimationAPI] = useSpring(
+    () => ({
+      from: {
         opacity: 0.3,
       },
-    ],
-    config: {
-      duration: config.luminary.movementDuration,
+      to: [
+        {
+          opacity: 1,
+        },
+        {
+          opacity: 1,
+          delay: config.luminary.delayAtTheTop,
+        },
+        {
+          opacity: 0.3,
+        },
+      ],
+      config: {
+        duration: config.luminary.movementDuration,
+      },
+    })
+  );
+
+  useControls({
+    pauseAnimations: {
+      value: state.pauseAnimations,
+      onChange: (isPaused) => {
+        if (isPaused) {
+          horizontalLightAnimationAPI.pause();
+        } else {
+          horizontalLightAnimationAPI.resume();
+        }
+        dispatch({ type: "pauseAnimations" });
+      },
     },
   });
+
   return (
     <HorizontalLightWrapper
       color={config.horizontalLight.color}
