@@ -64,7 +64,10 @@ type LuminaryProps = {
   isReflexion?: boolean;
 };
 function Luminary({ config, isReflexion = false }: LuminaryProps) {
-  const { state, dispatch } = useControlsContext();
+  const {
+    state: { pauseAnimations },
+    dispatch,
+  } = useControlsContext();
   const [luminaryMovement, luminaryMovementAPI] = useSpring(() => ({
     from: {
       top: "85vh",
@@ -123,7 +126,7 @@ function Luminary({ config, isReflexion = false }: LuminaryProps) {
 
   useControls({
     pauseAnimations: {
-      value: state.pauseAnimations,
+      value: pauseAnimations,
       onChange: (isPaused) => {
         if (isPaused) {
           luminaryMovementAPI.pause();

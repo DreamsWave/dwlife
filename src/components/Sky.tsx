@@ -28,38 +28,14 @@ type SkyProps = {
 };
 
 function Sky({ children, isReflexion = false, config }: SkyProps) {
-  // const [sky, setSky] = useState(config.sky);
-  // const [{ from, mid, to, skyReflexionColor }, set] = useControls(
-  //   "Sky",
-  //   () => ({
-  //     gradient: folder({
-  //       from: sky.colors[0],
-  //       mid: sky.colors[1],
-  //       to: sky.colors[2],
-  //     }),
-  //     skyReflexionColor: sky.skyReflexionColor,
-  //   })
-  // );
-
-  // useEffect(() => {
-  //   set({
-  //     from: sky.colors[0],
-  //     mid: sky.colors[1],
-  //     to: sky.colors[2],
-  //     skyReflexionColor: sky.skyReflexionColor,
-  //   });
-  // }, [config, set, sky.colors, sky.skyReflexionColor]);
-
   return (
     <SkyWrapper isReflexion={isReflexion} colors={config.sky.colors}>
-      {/* <SkyWrapper isReflexion={isReflexion} colors={[from, mid, to]}> */}
       {isReflexion && (
         <div
           style={{
             width: "100%",
             height: "100%",
             background: `linear-gradient(${config.sky.skyReflexionColor}, rgba(200, 200, 250, 0.05))`,
-            // background: `linear-gradient(${skyReflexionColor}, rgba(200, 200, 250, 0.05))`,
             zIndex: 1,
           }}
         >

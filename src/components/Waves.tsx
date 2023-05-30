@@ -1,4 +1,7 @@
+import { useRef } from "react";
 import styled from "styled-components";
+import { useControlsContext } from "../controls-context";
+import { useControls } from "leva";
 
 const WavesWrapper = styled.div`
   opacity: 0.7;
@@ -11,9 +14,29 @@ const WavesWrapper = styled.div`
 `;
 
 function Waves() {
+  const ref = useRef<SVGSVGElement | null>(null);
+  const {
+    state: { pauseAnimations },
+    dispatch,
+  } = useControlsContext();
+
+  useControls({
+    pauseAnimations: {
+      value: pauseAnimations,
+      onChange: (isPaused) => {
+        if (isPaused) {
+          ref.current?.pauseAnimations();
+        } else {
+          ref.current?.unpauseAnimations();
+        }
+        dispatch({ type: "pauseAnimations" });
+      },
+    },
+  });
+
   return (
     <WavesWrapper className="waves">
-      <svg>
+      <svg ref={ref}>
         <filter id="displacementFilter" x="0" y="0" width="100%" height="100%">
           <feTurbulence
             id="sea-filter"

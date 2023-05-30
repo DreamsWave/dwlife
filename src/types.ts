@@ -8,7 +8,7 @@ export type Cloud = {
 export type Clouds = Cloud[];
 
 export type Luminary = {
-  colors: string[];
+  colors: [string, string];
   glow: string;
   movementDuration: number;
   delayAtTheTop: number;
