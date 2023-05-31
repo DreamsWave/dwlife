@@ -2,6 +2,7 @@ import { animated, useTransition } from "@react-spring/web";
 import { useControls } from "leva";
 import { useEffect, useState } from "react";
 import { useControlsContext } from "../controls-context";
+import { scenes } from "../scenes";
 
 type ScenesProps = {
   children: React.ReactNode | React.ReactNode[] | null;
@@ -27,6 +28,14 @@ function Scenes({ children }: ScenesProps) {
 
   const { pauseAnimations } = useControls({
     pauseAnimations: { value: state.pauseAnimations },
+    selectScene: {
+      options: (Array.isArray(children) ? children : [children]).map(
+        (_, i) => scenes[i].name
+      ),
+      onChange: (scene) => {
+        setIndex(scenes.findIndex((s) => s.name === scene));
+      },
+    },
   });
 
   useEffect(() => {

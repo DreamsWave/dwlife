@@ -35,6 +35,7 @@ type LuminaryReflexionWrapperProps = {
   primaryLuminaryColor: string;
   primarySkyColor: string;
   opacity: number;
+  reflexionColor: string;
 };
 const LuminaryReflexionWrapper = styled(
   animated.div
@@ -53,8 +54,8 @@ const LuminaryReflexionWrapper = styled(
   opacity: ${({ opacity }) => opacity};
   background: radial-gradient(
     at center,
-    ${({ primaryLuminaryColor }) => primaryLuminaryColor} 0%,
-    ${({ primaryLuminaryColor }) => primaryLuminaryColor} 50%,
+    ${({ reflexionColor }) => reflexionColor} 0%,
+    ${({ reflexionColor }) => reflexionColor} 50%,
     ${({ primarySkyColor }) => primarySkyColor} 100%
   );
 `;
@@ -146,6 +147,7 @@ function Luminary({ config, isReflexion = false }: LuminaryProps) {
         className="luminary"
         primaryLuminaryColor={config.luminary.colors[0]}
         primarySkyColor={config.sky.colors[0]}
+        reflexionColor={config.luminary.reflexionColor}
         opacity={config.luminary.reflexionOpacity}
         style={{
           ...luminaryReflexionMovement,

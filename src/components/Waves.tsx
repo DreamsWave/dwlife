@@ -4,7 +4,7 @@ import { useControlsContext } from "../controls-context";
 import { useControls } from "leva";
 
 const WavesWrapper = styled.div`
-  opacity: 0.7;
+  // opacity: 0.7;
   width: 100%;
   height: 100%;
   backdrop-filter: blur(5px);
@@ -44,7 +44,7 @@ function Waves() {
             seed="2"
             baseFrequency="0.02 0.1"
           ></feTurbulence>
-          <feDisplacementMap scale="30" in="SourceGraphic"></feDisplacementMap>
+          <feDisplacementMap scale="50" in="SourceGraphic"></feDisplacementMap>
           <animate
             xlinkHref="#sea-filter"
             attributeName="baseFrequency"
