@@ -5,6 +5,7 @@ import Sky from "./Sky";
 import HorizontalLight from "./HorizontalLight";
 import Luminary from "./Luminary";
 import { styled } from "styled-components";
+import LowClouds from "./LowClouds";
 
 type SceneWrapperProps = {
   primaryBackgroundColor: string;
@@ -29,13 +30,14 @@ function Scene({ config }: SceneProps) {
 
   const SkyComponent = ({ isReflexion = false }: { isReflexion?: boolean }) => (
     <Sky isReflexion={isReflexion} config={config}>
-      <HorizontalLight config={config} />
+      <HorizontalLight config={config} isReflexion={isReflexion} />
       <Luminary config={config} isReflexion={isReflexion} />
       <Clouds
         isReflexion={isReflexion}
         boxShadows={cloudsBoxShadows}
         config={config}
       />
+      <LowClouds isReflexion={isReflexion} config={config} />
     </Sky>
   );
   return (

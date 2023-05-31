@@ -1,4 +1,4 @@
-import { Cloud, Clouds } from "./types";
+import { Cloud, Clouds, Star } from "./types";
 
 export const generateClouds = (clouds: Clouds) => {
   function rn(from: number, to: number) {
@@ -82,4 +82,20 @@ export const generateSkyGradient = (position: string, colors: string[]) => {
       .map((color, index) => `${color} ${(index * 100) / (colors.length - 1)}%`)
       .join(", ")}
   )`;
+};
+
+export const random = (min: number, max: number) => {
+  return Number((min + Math.random() * (max - min)).toFixed(2));
+};
+
+export const generateStars = (count: number, color: string): Star[] => {
+  return new Array(count).fill(0).map(() => {
+    return {
+      x: random(0, 100),
+      y: random(0, 100),
+      opacity: random(0.5, 1),
+      size: random(1, 3),
+      color,
+    };
+  });
 };

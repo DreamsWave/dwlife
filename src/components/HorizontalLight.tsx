@@ -11,11 +11,18 @@ type HorizontalLightWrapperProps = {
 const HorizontalLightWrapper = styled(
   animated.div
 )<HorizontalLightWrapperProps>`
-  background-image: linear-gradient(
-    0deg,
-    ${({ color }) => color} 0%,
+  background-image: ${({ isReflexion, color }) =>
+    isReflexion
+      ? `radial-gradient(
+    at 50% 100%,
+    ${color} 0%,
     transparent 40%
-  );
+  )`
+      : `linear-gradient(
+    0deg,
+    ${color} 0%,
+    transparent 40%
+  )`};
   width: 100%;
   height: 100%;
   opacity: ${({ isReflexion }) => (isReflexion ? 0.8 : 1)};
@@ -40,10 +47,14 @@ function HorizontalLight({
       },
       to: [
         {
-          opacity: 1,
+          opacity: config.horizontalLight.opacity
+            ? config.horizontalLight.opacity
+            : 1,
         },
         {
-          opacity: 1,
+          opacity: config.horizontalLight.opacity
+            ? config.horizontalLight.opacity
+            : 1,
           delay: config.luminary.delayAtTheTop,
         },
         {

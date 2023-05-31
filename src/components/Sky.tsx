@@ -3,6 +3,7 @@ import { isChromium } from "../utils";
 import Waves from "./Waves";
 import { Scene } from "../types";
 import { styled } from "styled-components";
+import Stars from "./Stars";
 
 type SkyWrapperProps = {
   isReflexion: boolean;
@@ -42,6 +43,7 @@ function Sky({ children, isReflexion = false, config }: SkyProps) {
           {isChromium() && <Waves />}
         </div>
       )}
+      {config.stars?.count && <Stars config={config} />}
       {children}
     </SkyWrapper>
   );
